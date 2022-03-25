@@ -1,0 +1,49 @@
+version: "3"
+
+volumes:
+  database_data:
+      driver: local
+
+services:
+  database:
+    hostname: ddpr
+    restart: always
+    volumes:
+      - ./database_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST=database
+      - POSTGRES_NAME=ddpr
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    image: postgres:14-alpine
+  backend:
+    hostname: ddpr
+    restart: always
+    volumes:
+      - ./backend:/web/ddpr
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+      - POSTGRES_NAME=ddpr
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - database
+    links:
+      - database
+    build: ./backend/.
+    command: /bin/sh /ddpr/app/start_backend.sh
+  frontend:
+    hostname: ddpr
+    restart: always
+    volumes:
+      - ./frontend:/ddpr/app/frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    build: ./frontend/.
+    command: /bin/sh /ddpr/app/frontend/start_frontend.sh
+
