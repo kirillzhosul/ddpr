@@ -1,1 +1,9 @@
 theme: jekyll-theme-slate
+
+title: DDPR
+description: Template Docker + Django + PostgreSQL + React setup.
+
+github:
+  repository_url: https://github.com/kirillzhosul/ddpr
+  owner_url: https://github.com/kirillzhosul
+  owner_name: kirillzhosul
