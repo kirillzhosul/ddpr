@@ -5,5 +5,7 @@ description: Template Docker + Django + PostgreSQL + React setup.
 
 github:
   repository_url: https://github.com/kirillzhosul/ddpr
-  owner_url: https://github.com/kirillzhosul
+  owner_url: https://kirillzhosul.site
   owner_name: kirillzhosul
+
+show_downloads: true
